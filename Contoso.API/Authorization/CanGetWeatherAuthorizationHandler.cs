@@ -25,10 +25,10 @@ namespace Contoso.API.Authorization
 
             if (userId.IsAuthenticated)
             {
-                var aud = userId.Claims.SingleOrDefault(x => x.Type == "aud");
-                if (aud != null)
+                var appid = userId.Claims.SingleOrDefault(x => x.Type == "appid");
+                if (appid != null)
                 {
-                    var value = aud.Value.Replace("api://", "");
+                    var value = appid.Value;
 
                     var client = _httpClientFactory.CreateClient(Constants.SecurityAPIClient);
                     var response = await client.GetAsync($"SecurityPolicy/{value}");
