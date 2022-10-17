@@ -6,7 +6,7 @@ using Microsoft.Identity.Web.Resource;
 
 namespace Contoso.API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = CanGetWeatherPolicyProvider.POLICY_PREFIX)]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -23,7 +23,6 @@ namespace Contoso.API.Controllers
             _logger = logger;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = CanGetWeatherPolicyProvider.POLICY_PREFIX)]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
