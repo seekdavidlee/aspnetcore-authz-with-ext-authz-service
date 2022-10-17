@@ -6,7 +6,7 @@ using Microsoft.Identity.Web.Resource;
 
 namespace Contoso.API.Controllers
 {
-    [Authorize(Policy = CanGetWeatherPolicyProvider.POLICY_PREFIX)]
+    [Authorize(Policy = Constants.CanGetWeatherPolicyName)]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

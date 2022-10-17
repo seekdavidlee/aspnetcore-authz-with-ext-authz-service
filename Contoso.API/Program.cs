@@ -22,17 +22,12 @@ namespace Contoso.API
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
-            // Replace the default authorization policy provider with our own
-            // custom provider which can return authorization policies for given
-            // policy names (instead of using the default policy provider)
-            builder.Services.AddSingleton<IAuthorizationPolicyProvider, CanGetWeatherPolicyProvider>();
-
             // As always, handlers must be provided for the requirements of the authorization policies
             builder.Services.AddSingleton<IAuthorizationHandler, CanGetWeatherAuthorizationHandler>();
 
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy(CanGetWeatherPolicyProvider.POLICY_PREFIX, policy =>
+                options.AddPolicy(Constants.CanGetWeatherPolicyName, policy =>
                     policy.Requirements.Add(new CanGetWeatherRequirement()));
             });
 
